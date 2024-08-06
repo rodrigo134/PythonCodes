@@ -1,0 +1,17 @@
+from collections import Counter
+import string
+def analisar_texto(texto):
+
+    tratamento=str.maketrans("", "", string.punctuation)
+    texto_tratado = texto.translate(tratamento)
+    palavra= texto_tratado.split()
+    contagem_palavra= len(palavra)
+    frequencia_palavra= Counter(palavra)
+    frequencia_letras= Counter(texto_tratado.lower())
+    return contagem_palavra,frequencia_palavra,frequencia_letras
+
+texto = input('Digite sua frase aqui para ser contada !')
+contagem_palavra,frequencia_palavra,frequencia_letras = analisar_texto(texto)
+print("contagem palavras: " , contagem_palavra)
+print("frequencia letras: ",frequencia_letras)
+print("frequencia palavras: ",frequencia_palavra)
