@@ -1,1 +1,1 @@
-Python code to count letters and words
+Python code to apply my learning
