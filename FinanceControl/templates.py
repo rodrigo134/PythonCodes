@@ -39,7 +39,12 @@ class UI():
         criar_conta(conta)
 
     def _listar_dividas(self):
-        listar_dividas()
+        dividas = listar_dividas()
+        if not dividas:
+            print("Não há dívidas cadastradas.")
+        for divida in dividas:
+            print(divida, '\n')
+            print(30*"-", '\n')
 
     def _cadastrar_divida(self):
         descricao = input("Insira o nome da divida: ")

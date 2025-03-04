@@ -38,12 +38,7 @@ def listar_dividas():
         statement = select(Divida)
         results = session.exec(statement).all()
 
-        if not results:
-            print('Sem dívidas')
-
-        for divida in results:
-            print(f'{divida}')
-            print(30*"-", '\n')
+        return results
 
 
 def valor_total_divida():
@@ -83,6 +78,3 @@ def calculo():
                     f"❌ Você não tem saldo suficiente para pagar todas as dívidas! Faltam R${total_dividas - total_conta:.2f}")
         else:
             print("❌ Não há contas com saldo positivo.")
-
-
-calculo()
