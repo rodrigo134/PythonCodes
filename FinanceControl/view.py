@@ -27,8 +27,6 @@ def cadastrar_divida(divida: Divida):
 
         session.add(divida)
         session.commit()
-        print(Conta.valor)
-        print(divida.valor)
 
         return divida
 # p1= Divida(valor=40.0,descricao='user')
@@ -50,9 +48,41 @@ def listar_dividas():
 
 def valor_total_divida():
     with Session(engine) as session:
+        # Selecionando a coluna valor na tabela dívida e fazendo a soma total
         statement = select(func.sum(Divida.valor))
+
         soma_valores = session.exec(statement).first()
         print(f'VALOR TOTAL DA DÍVIDA É {soma_valores} \n ')
 
+        return soma_valores
 
 
+def calculo():
+    with Session(engine) as session:
+        # Seleciona a primeira conta com saldo maior que 0
+        statement = select(Conta).where(Conta.valor > 0)
+        # Pega a primeira conta com saldo maior que 0
+        conta_com_dinheiro = session.exec(statement).first()
+
+        if conta_com_dinheiro:  # Verifica se há uma conta com saldo
+            total_conta = conta_com_dinheiro.valor  # Acessa o valor da conta encontrada
+
+            print(
+                f"Conta no banco {conta_com_dinheiro.agencia.value} com saldo: R${total_conta:.2f}")
+
+            # Pegando todas as dívidas cadastradas
+            total_dividas = valor_total_divida()
+
+            # Calculando se a conta consegue pagar as dívidas
+            if total_conta >= total_dividas:
+                saldo_restante = total_conta - total_dividas
+                print(
+                    f"✅ Você pode pagar todas as dívidas! Saldo restante: R${saldo_restante:.2f} \n")
+            else:
+                print(
+                    f"❌ Você não tem saldo suficiente para pagar todas as dívidas! Faltam R${total_dividas - total_conta:.2f}")
+        else:
+            print("❌ Não há contas com saldo positivo.")
+
+
+calculo()

@@ -10,7 +10,7 @@ class UI():
             print('[2]: Listar dividas')
             print('[3]: Cadastrar divida')
             print('[4]: Valor total dívidas ')
-
+            print('[5]: Calcular Pagamento')
             print("ESCOLHA A OPÇÃO")
             opcao = int(input())
 
@@ -24,6 +24,9 @@ class UI():
 
             if opcao == 4:
                 self._valor_total_divida()
+
+            if opcao == 5:
+                self._calculo()
 
     def _criar_conta(self):
         print("Agencias Disponíveis")
@@ -46,6 +49,9 @@ class UI():
 
     def _valor_total_divida(self):
         valor_total_divida()
+
+    def _calculo(self):
+        calculo()
 
 
 UI().start()
